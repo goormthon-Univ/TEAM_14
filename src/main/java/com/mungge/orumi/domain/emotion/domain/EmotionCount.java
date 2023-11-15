@@ -1,4 +1,4 @@
-package com.mungge.orumi.domain.user.domain;
+package com.mungge.orumi.domain.emotion.domain;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -11,15 +11,15 @@ import lombok.Getter;
 @Getter
 @Table(name = "user_count")
 @Entity
-public class UserCount {
+public class EmotionCount {
     @Id
     @Column(name = "user_id")
     private String userId;
-    private int joyCnt = 0;
-    private int angryCnt = 0;
-    private int tiredCnt = 0;
-    private int sadCnt = 0;
-    private int depressedCnt = 0;
     private int peaceCnt = 0;
+    private int excitedCnt = 0;
+    private int happyCnt = 0;
+    private int tiredCnt = 0;
+    private int angryCnt = 0;
+    private int sadCnt = 0;
 
 }
