@@ -6,13 +6,13 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Data
 @Getter
 @Setter
 @Entity
-public class Dairy {
+public class Diary {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "dairy_id")
@@ -27,5 +27,5 @@ public class Dairy {
     private String image;   // Image or File 엔티티 따로 구현해야할듯
 
     @CreatedDate
-    private LocalDateTime date;
+    private LocalDate date;
 }
