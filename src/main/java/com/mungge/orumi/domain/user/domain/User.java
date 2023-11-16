@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDate;
+
 @Data
 @Getter
 @Setter
@@ -15,5 +17,5 @@ public class User {
     private String id;
     private String nickname;
     private String password;
-
+    private LocalDate joinDate;
 }
