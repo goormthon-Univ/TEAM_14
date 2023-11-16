@@ -1,8 +1,7 @@
 package com.mungge.orumi.domain.emotion.api;
 
 import com.mungge.orumi.domain.emotion.application.EmotionCountService;
-import com.mungge.orumi.domain.dairy.domain.Emotion;
-import com.mungge.orumi.domain.emotion.domain.EmotionCount;
+import com.mungge.orumi.domain.diary.domain.Emotion;
 import com.mungge.orumi.domain.emotion.dto.SkyDto;
 import com.mungge.orumi.domain.emotion.dto.WeatherDto;
 import io.swagger.v3.oas.annotations.Operation;

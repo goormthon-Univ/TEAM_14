@@ -1,4 +1,4 @@
-package com.mungge.orumi.domain.dairy.domain;
+package com.mungge.orumi.domain.diary.domain;
 
 import com.mungge.orumi.global.common.BaseEnum;
 import lombok.RequiredArgsConstructor;

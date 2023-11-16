@@ -1,4 +1,4 @@
-package com.mungge.orumi.domain.dairy.domain;
+package com.mungge.orumi.domain.diary.domain;
 
 import jakarta.persistence.*;
 import lombok.Data;

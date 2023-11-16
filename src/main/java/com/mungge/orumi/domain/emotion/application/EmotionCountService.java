@@ -1,8 +1,8 @@
 package com.mungge.orumi.domain.emotion.application;
 
 import com.mungge.orumi.domain.emotion.dao.EmotionCountRepository;
-import com.mungge.orumi.domain.dairy.domain.Diary;
-import com.mungge.orumi.domain.dairy.domain.Emotion;
+import com.mungge.orumi.domain.diary.domain.Diary;
+import com.mungge.orumi.domain.diary.domain.Emotion;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

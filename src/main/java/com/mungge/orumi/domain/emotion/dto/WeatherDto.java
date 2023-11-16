@@ -1,6 +1,6 @@
 package com.mungge.orumi.domain.emotion.dto;
 
-import com.mungge.orumi.domain.dairy.domain.Emotion;
+import com.mungge.orumi.domain.diary.domain.Emotion;
 import lombok.Getter;
 
 import java.util.List;

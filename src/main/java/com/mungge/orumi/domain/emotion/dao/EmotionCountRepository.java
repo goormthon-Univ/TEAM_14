@@ -1,6 +1,6 @@
 package com.mungge.orumi.domain.emotion.dao;
 
-import com.mungge.orumi.domain.dairy.domain.Diary;
+import com.mungge.orumi.domain.diary.domain.Diary;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
