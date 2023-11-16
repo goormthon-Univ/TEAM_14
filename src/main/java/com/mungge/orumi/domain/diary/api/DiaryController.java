@@ -2,53 +2,55 @@ package com.mungge.orumi.domain.diary.api;
 
 import com.mungge.orumi.domain.diary.application.DiaryService;
 import com.mungge.orumi.domain.diary.domain.Diary;
-import com.mungge.orumi.domain.diary.domain.DiaryForm;
+import com.mungge.orumi.domain.diary.dto.DiaryRequestDto;
+import com.mungge.orumi.domain.diary.dto.DiaryResponseDto;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
-@Controller
+@RestController
 @RequiredArgsConstructor
+@RequestMapping("/api/v1/diary")
 public class DiaryController {
 
     private final DiaryService diaryService;
+    private static String id = "orumi";
 
-    // 구름 선택
-    @PostMapping(value = "/diary/new")
-    public String createForm(Model model) {
-        model.addAttribute("form", new DiaryForm());
+    @Operation(summary = "감정구름 고르기", tags = "Diary Controller")
+    @ApiResponse(responseCode = "200", description = "OK",
+            content = @Content(schema = @Schema(implementation = String.class)))
+    @GetMapping("/cloud")
+    public ResponseEntity<?> selectCloud() {
+        return ResponseEntity.ok("nickname");
+    }
 
-        Diary diary = new Diary();
-        DiaryForm diaryForm = new DiaryForm();
-        diary.setEmotion(diaryForm.getEmotion());
+    @Operation(summary = "구름일기 작성", tags = "Diary Controller")
+    @ApiResponse(responseCode = "200", description = "OK",
+            content = @Content(schema = @Schema(implementation = Diary.class)))
+    @ApiResponse(responseCode = "400", description = "BAD REQUEST")
+    @ApiResponse(responseCode = "404", description = "NOT FOUND")
+    @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR")
+    @PostMapping("/new")
+    public ResponseEntity<?> createDiary(DiaryRequestDto diaryDto) {
+        Diary diary = new Diary(id, diaryDto.getEmotion(), diaryDto.getText(), null);
         diaryService.saveDiary(diary);
-        return "redirect:/diary";
+        return ResponseEntity.ok(diary);
     }
 
-    //저장
-    @GetMapping("diary/{diaryId}/edit")
-    public String updateForm(@PathVariable("diaryId") Long Id, Model model){
-        Diary diary = (Diary) diaryService.findOne(Id);
-
-        DiaryForm form = new DiaryForm();
-        form.setDairyId(diary.getDairyId());
-        form.setEmotion(diary.getEmotion());
-        form.setText(diary.getText());
-        form.setDate(diary.getDate());
-
-        model.addAttribute("form", form);
-        return "redirect:/diary";
-    }
-    @PostMapping("diary/{diaryId}/edit")
-    public String updateDiaryForm(@PathVariable Long diaryId, @ModelAttribute("from") DiaryForm form) {
-
-        diaryService.updateDiary(diaryId, form.getUserId(), form.getEmotion(),
-                form.getText(), form.getImage(), form.getDate());
-        return "redirect:/diary";
+    @Operation(summary = "나의 구름", tags = "Diary Controller")
+    @ApiResponse(responseCode = "200", description = "OK",
+            content = @Content(schema = @Schema(implementation = DiaryResponseDto.class)))
+    @ApiResponse(responseCode = "400", description = "BAD REQUEST")
+    @ApiResponse(responseCode = "404", description = "NOT FOUND")
+    @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR")
+    @GetMapping("/{date}")
+    public ResponseEntity<?> getDiary(@PathVariable String date) {
+        Diary diary = new Diary();
+        DiaryResponseDto responseDto = new DiaryResponseDto(diary.getEmotion(), diary.getText(), diary.getImage(), diary.getDate());
+        return ResponseEntity.ok(responseDto);
     }
 }
