@@ -15,6 +15,11 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @Entity
+@Table(
+        uniqueConstraints = {
+                @UniqueConstraint(name = "UniqueUserIdAndDate", columnNames = {"user_id", "date"})
+        }
+)
 @NoArgsConstructor
 public class Diary {
     @Id

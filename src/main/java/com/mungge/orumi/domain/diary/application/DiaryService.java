@@ -14,14 +14,13 @@ public class DiaryService {
 
     private final DiaryRepository diaryRepository;
 
-    public String createDiary(Diary diary) {
+    public void createDiary(Diary diary) {
         diaryRepository.save(diary);
-        return "save";
     }
 
-    public String updateDiary(Diary diary) {
-        diaryRepository.save(diary);
-        return "update";
+    public Long updateDiary(Diary diary) {
+        Diary temp =diaryRepository.save(diary);
+        return temp.getDiaryId();
     }
 
     public Diary getDiary(String userId, LocalDate date) {
