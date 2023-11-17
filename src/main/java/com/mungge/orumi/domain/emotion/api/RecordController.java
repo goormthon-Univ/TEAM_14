@@ -4,6 +4,7 @@ import com.mungge.orumi.domain.emotion.application.EmotionCountService;
 import com.mungge.orumi.domain.diary.domain.Emotion;
 import com.mungge.orumi.domain.emotion.dto.SkyDto;
 import com.mungge.orumi.domain.emotion.dto.WeatherDto;
+import com.mungge.orumi.domain.user.application.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -23,6 +25,7 @@ import java.util.List;
 public class RecordController {
 
     private final EmotionCountService emotionCountService;
+    private final UserService userService;
     private static String id = "orumi";
 
     @Operation(summary = "감정 날씨", tags = "Record Controller")
@@ -35,7 +38,8 @@ public class RecordController {
     public ResponseEntity<?> getEmotionWeather() {
 
         List<Emotion> list = emotionCountService.getEmotionsOfMonth(id);
-        WeatherDto weatherDto = new WeatherDto(id, list);
+        LocalDate joinDate = userService.findJoinDate(id);
+        WeatherDto weatherDto = new WeatherDto(id, joinDate, list);
         return ResponseEntity.ok(weatherDto);
     }
 
