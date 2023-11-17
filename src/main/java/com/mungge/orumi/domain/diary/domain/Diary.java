@@ -19,8 +19,8 @@ import java.time.LocalDate;
 public class Diary {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "dairy_id")
-    private String dairyId;
+    @Column(name = "diary_id")
+    private Long diaryId;
 
     @Column(name = "user_id")
     private String userId;
@@ -28,17 +28,17 @@ public class Diary {
     @Convert(converter = EmotionConverter.class)
     private Emotion emotion;
     private String text;
-    private String image;   // Image or File 엔티티 따로 구현해야할듯
+    private Long imageId;   // Image or File 엔티티 따로 구현해야할듯
 
     @CreatedDate
     @Convert(converter = LocalDateConverter.class)
     private LocalDate date;
 
-    public Diary(String userId, Emotion emotion, String text, String image) {
+    public Diary(String userId, Emotion emotion, String text, Long imageId) {
         this.userId = userId;
         this.emotion = emotion;
         this.text = text;
-        this.image = image;
+        this.imageId = imageId;
         date = LocalDate.now();
     }
 }
