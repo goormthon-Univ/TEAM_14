@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import java.time.LocalDate;
 
 @Repository
-public interface DiaryRepository extends CrudRepository<Diary, Long>, JpaRepository<Diary, Long> {
+public interface DiaryRepository extends JpaRepository<Diary, Long> {
 
     public Diary findByUserIdAndDate(String userId, LocalDate date);
 }
