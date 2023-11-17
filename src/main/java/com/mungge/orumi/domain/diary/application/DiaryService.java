@@ -17,23 +17,18 @@ public class DiaryService {
 
     private final DiaryRepository diaryRepository;
 
-    @Transactional
-    public void saveDiary(Diary diary){
+    public String createDiary(Diary diary) {
         diaryRepository.save(diary);
+        return "save";
     }
 
-    public Diary findOne(Long diaryId) {
-        return diaryRepository.findOne(diaryId);
+    public String updateDiary(Diary diary) {
+        diaryRepository.save(diary);
+        return "update";
     }
 
-    @Transactional
-    public void updateDiary(Long diaryId, String userId, Emotion emotion, String text, String image, LocalDate date)
-    {
-        Diary diary = diaryRepository.findOne(diaryId);
-        diary.setUserId(userId);
-        diary.setEmotion(emotion);
-        diary.setText(text);
-        diary.setImage(image);
-        diary.setDate(date);
+    public Diary getDiary(String userId, LocalDate date) {
+        Diary diary = diaryRepository.findByUserIdAndDate(userId, date);
+        return diary;
     }
 }

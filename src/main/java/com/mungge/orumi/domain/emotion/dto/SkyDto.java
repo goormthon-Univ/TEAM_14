@@ -2,6 +2,8 @@ package com.mungge.orumi.domain.emotion.dto;
 
 import lombok.Getter;
 
+import java.time.LocalDate;
+
 @Getter
 public class SkyDto {
     private String userId;

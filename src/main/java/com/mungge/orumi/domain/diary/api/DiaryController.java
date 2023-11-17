@@ -12,6 +12,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/diary")
@@ -37,7 +40,7 @@ public class DiaryController {
     @PostMapping("/new")
     public ResponseEntity<?> createDiary(DiaryRequestDto diaryDto) {
         Diary diary = new Diary(id, diaryDto.getEmotion(), diaryDto.getText(), null);
-        diaryService.saveDiary(diary);
+        diaryService.createDiary(diary);
         return ResponseEntity.ok(diary);
     }
 
@@ -49,8 +52,22 @@ public class DiaryController {
     @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR")
     @GetMapping("/{date}")
     public ResponseEntity<?> getDiary(@PathVariable String date) {
-        Diary diary = new Diary();
+        LocalDate formattedDate = LocalDate.parse(date, DateTimeFormatter.ISO_LOCAL_DATE);
+        Diary diary = diaryService.getDiary(id, formattedDate);
         DiaryResponseDto responseDto = new DiaryResponseDto(diary.getEmotion(), diary.getText(), diary.getImage(), diary.getDate());
         return ResponseEntity.ok(responseDto);
+    }
+
+    @Operation(summary = "나의 구름 수정", tags = "Diary Controller")
+    @ApiResponse(responseCode = "200", description = "OK",
+            content = @Content(schema = @Schema(implementation = Diary.class)))
+    @ApiResponse(responseCode = "400", description = "BAD REQUEST")
+    @ApiResponse(responseCode = "404", description = "NOT FOUND")
+    @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR")
+    @PutMapping("/{date}/update")
+    public ResponseEntity<?> updateDiary(DiaryRequestDto diaryDto) {
+        Diary diary = new Diary(id, diaryDto.getEmotion(), diaryDto.getText(), null);
+        diaryService.createDiary(diary);
+        return ResponseEntity.ok(diary);
     }
 }
