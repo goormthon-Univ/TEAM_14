@@ -109,7 +109,7 @@ public class DiaryController {
         return ResponseEntity.ok(diary);
     }
 
-    class DummyDto{
+    static class DummyDto{
         Emotion emotion;
         String text;
         LocalDate localDate;
