@@ -4,6 +4,7 @@ import com.mungge.orumi.domain.Image.application.ImageService;
 import com.mungge.orumi.domain.Image.domain.Image;
 import com.mungge.orumi.domain.diary.application.DiaryService;
 import com.mungge.orumi.domain.diary.domain.Diary;
+import com.mungge.orumi.domain.diary.domain.Emotion;
 import com.mungge.orumi.domain.diary.dto.DiaryRequestDto;
 import com.mungge.orumi.domain.diary.dto.DiaryResponseDto;
 import io.swagger.v3.oas.annotations.Operation;
@@ -65,7 +66,8 @@ public class DiaryController {
         LocalDate formattedDate = LocalDate.parse(date, DateTimeFormatter.ISO_LOCAL_DATE);
         Diary diary = diaryService.getDiary(id, formattedDate);
         Image image = imageService.getImage(diary.getImageId());
-        DiaryResponseDto responseDto = new DiaryResponseDto(diary.getEmotion(), diary.getText(), diary.getDate());;
+        DiaryResponseDto responseDto = new DiaryResponseDto(diary.getEmotion(), diary.getText(), diary.getDate());
+        ;
         if (image != null) {
             String imageUrl = image.getFileUrl() + image.getFileName();
             responseDto.setImageUrl(imageUrl);
@@ -81,7 +83,7 @@ public class DiaryController {
     @ApiResponse(responseCode = "404", description = "NOT FOUND")
     @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR")
     @PutMapping(value = "/{date}/update", consumes = "multipart/form-data")
-    public ResponseEntity<?> updateDiary(@RequestPart DiaryRequestDto diaryDto, @RequestPart(required = false)MultipartFile requestImage, @PathVariable String date) throws IOException {
+    public ResponseEntity<?> updateDiary(@RequestPart DiaryRequestDto diaryDto, @RequestPart(required = false) MultipartFile requestImage, @PathVariable String date) throws IOException {
         LocalDate formattedDate = LocalDate.parse(date, DateTimeFormatter.ISO_LOCAL_DATE);
         Diary diary = diaryService.getDiary(id, formattedDate);
         diary.setText(diaryDto.getText());
@@ -94,5 +96,40 @@ public class DiaryController {
         diaryService.updateDiary(diary);
 
         return ResponseEntity.ok(diary);
+    }
+
+    @PostMapping(value = "/dummy", consumes = "multipart/form-data")
+    public ResponseEntity<?> dummy(@RequestPart DummyDto dto, @RequestPart(required = false) MultipartFile requestImage) throws IOException {
+        Long imageId = null;
+        if (requestImage != null) {
+            imageId = imageService.save(requestImage);
+        }
+        Diary diary = new Diary(id, dto.getEmotion(), dto.getText(), imageId, dto.getLocalDate());
+        diaryService.createDiary(diary);
+        return ResponseEntity.ok(diary);
+    }
+
+    class DummyDto{
+        Emotion emotion;
+        String text;
+        LocalDate localDate;
+
+        private DummyDto(Emotion emotion, String text, LocalDate date) {
+            this.emotion = emotion;
+            this.text = text;
+            this.localDate = date;
+        }
+
+        public Emotion getEmotion() {
+            return emotion;
+        }
+
+        public String getText() {
+            return text;
+        }
+
+        public LocalDate getLocalDate() {
+            return localDate;
+        }
     }
 }

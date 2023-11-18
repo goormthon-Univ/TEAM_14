@@ -65,4 +65,9 @@ public class RecordController {
         int count = emotionCountService.getCountOfEmotion(id, emotion);
         return ResponseEntity.ok(count);
     }
+
+//    @GetMapping("/emotioncount")
+//    public ResponseEntity<?> insertEmotionCount() {
+//
+//    }
 }

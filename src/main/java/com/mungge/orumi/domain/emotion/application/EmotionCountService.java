@@ -131,4 +131,8 @@ public class EmotionCountService {
         if(emotion.ANGRY.getValue() == 4) emotionCount.setAngryCnt(emotionCount.getAngryCnt() - 1);
         if(emotion.SAD.getValue() == 5) emotionCount.setSadCnt(emotionCount.getSadCnt() - 1);
     }
+
+//    public void saveEmotion() {
+//        recordRepository.save()
+//    }
 }
