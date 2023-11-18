@@ -83,11 +83,18 @@ public class EmotionCountService {
         LocalDate start = YearMonth.now().atDay(1);
         LocalDate today = LocalDate.now();
 
-        for(int i = 0; i < 6; i++) {
-            int cnt = recordRepository
-                    .countAllByUserIdAndEmotionAndDateBetween(userId, i, start, today);
-            list.add(cnt);
-        }
+//        for(int i = 0; i < 6; i++) {
+//            int cnt = recordRepository
+//                    .countAllByUserIdAndEmotionAndDateBetween(userId, i, start, today);
+//            list.add(cnt);
+//        }
+        list.add(getCountOfPeace(userId));
+        list.add(getCountOfExcited(userId));
+        list.add(getCountOfHappy(userId));
+        list.add(getCountOfTired(userId));
+        list.add(getCountOfAngry(userId));
+        list.add(getCountOfSad(userId));
+
         return list;
     }
 

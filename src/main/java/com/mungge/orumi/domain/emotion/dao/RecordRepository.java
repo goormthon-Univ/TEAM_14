@@ -16,7 +16,7 @@ public interface RecordRepository extends JpaRepository<Diary, Long> {
      * FROM dairy
      * WHERE user_id = {userId} AND emotion = {emotion} AND date >= {start} AND date <= {today}
      */
-    public int countAllByUserIdAndEmotionAndDateBetween(String userId, int emotion, LocalDate start, LocalDate today);
+    public int countAllByUserIdAndEmotionAndDateBetween(String userId, Emotion emotion, LocalDate start, LocalDate today);
 
     /*
      * 감정 날씨 (오름차순으로 가입한 날 이후의 모든 감정 출력)
