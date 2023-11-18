@@ -10,13 +10,17 @@ import java.time.LocalDate;
 public class DiaryResponseDto {
     Emotion emotion;
     String text;
-    Image image;
+    String imageUrl;
     LocalDate date;
 
-    public DiaryResponseDto(Emotion emotion, String text, Image image, LocalDate date) {
+    public DiaryResponseDto(Emotion emotion, String text, LocalDate date) {
         this.emotion = emotion;
         this.text = text;
-        this.image = image;
         this.date = date;
+        imageUrl = null;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }

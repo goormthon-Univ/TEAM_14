@@ -65,7 +65,12 @@ public class DiaryController {
         LocalDate formattedDate = LocalDate.parse(date, DateTimeFormatter.ISO_LOCAL_DATE);
         Diary diary = diaryService.getDiary(id, formattedDate);
         Image image = imageService.getImage(diary.getImageId());
-        DiaryResponseDto responseDto = new DiaryResponseDto(diary.getEmotion(), diary.getText(), image, diary.getDate());
+        DiaryResponseDto responseDto = new DiaryResponseDto(diary.getEmotion(), diary.getText(), diary.getDate());;
+        if (image != null) {
+            String imageUrl = image.getFileUrl() + image.getFileName();
+            responseDto.setImageUrl(imageUrl);
+        }
+
         return ResponseEntity.ok(responseDto);
     }
 
