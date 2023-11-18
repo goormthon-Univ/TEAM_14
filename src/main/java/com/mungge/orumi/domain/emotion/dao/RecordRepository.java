@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface RecordRepository extends JpaRepository<Diary, Long> {
@@ -24,6 +25,8 @@ public interface RecordRepository extends JpaRepository<Diary, Long> {
      * ORDER BY date ASC
      */
     public List<Diary> findByUserIdAndDateBetween(String userId, LocalDate start, LocalDate today);
+
+    public Diary findByUserIdAndDate(String userId, LocalDate now);
 
     public int countDiaryByUserIdAndEmotionAndDateBetween(String userId, Emotion emotion, LocalDate start, LocalDate today);
 }
