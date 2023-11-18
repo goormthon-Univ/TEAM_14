@@ -18,16 +18,16 @@ public class DiaryService {
     private final EmotionCountService emotionCountService;
 
     public void createDiary(Diary diary) {
-        emotionCountService.plusEmotion(diary.getEmotion());
+//        emotionCountService.plusEmotion(diary.getEmotion());
         diaryRepository.save(diary);
     }
 
     public Long updateDiary(Diary diary) {
-        Emotion pastDiaryEmotion = diaryRepository.getReferenceById(diary.getDiaryId()).getEmotion();
-        if(pastDiaryEmotion != diary.getEmotion()) {
-            emotionCountService.plusEmotion(diary.getEmotion());
-            emotionCountService.minusEmotion(pastDiaryEmotion);
-        }
+//        Emotion pastDiaryEmotion = diaryRepository.getReferenceById(diary.getDiaryId()).getEmotion();
+//        if(pastDiaryEmotion != diary.getEmotion()) {
+//            emotionCountService.plusEmotion(diary.getEmotion());
+//            emotionCountService.minusEmotion(pastDiaryEmotion);
+//        }
         Diary temp = diaryRepository.save(diary);
         return temp.getDiaryId();
     }
