@@ -6,9 +6,11 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.Getter;
+import lombok.Setter;
 
 @Data
 @Getter
+@Setter
 @Table(name = "user_count")
 @Entity
 public class EmotionCount {

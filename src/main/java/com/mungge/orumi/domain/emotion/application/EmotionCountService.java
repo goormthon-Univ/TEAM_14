@@ -3,6 +3,7 @@ package com.mungge.orumi.domain.emotion.application;
 import com.mungge.orumi.domain.diary.domain.Diary;
 import com.mungge.orumi.domain.diary.domain.Emotion;
 import com.mungge.orumi.domain.emotion.dao.RecordRepository;
+import com.mungge.orumi.domain.emotion.domain.EmotionCount;
 import com.mungge.orumi.domain.user.dao.UserRepository;
 import com.mungge.orumi.domain.user.domain.User;
 import lombok.RequiredArgsConstructor;
@@ -115,5 +116,25 @@ public class EmotionCountService {
             now = now.plusDays(1);
         }
         return list;
+    }
+
+    public void plusEmotion(Emotion emotion){
+        EmotionCount emotionCount = null;
+        if(emotion.PEACE.getValue() == 0) emotionCount.setPeaceCnt(emotionCount.getPeaceCnt() + 1);
+        if(emotion.EXCITED.getValue() == 1) emotionCount.setExcitedCnt(emotionCount.getExcitedCnt() + 1);
+        if(emotion.HAPPY.getValue() == 2) emotionCount.setHappyCnt(emotionCount.getHappyCnt() + 1);
+        if(emotion.TIRED.getValue() == 3) emotionCount.setTiredCnt(emotionCount.getTiredCnt() + 1);
+        if(emotion.ANGRY.getValue() == 4) emotionCount.setAngryCnt(emotionCount.getAngryCnt() + 1);
+        if(emotion.SAD.getValue() == 5) emotionCount.setSadCnt(emotionCount.getSadCnt() + 1);
+    }
+
+    public void minusEmotion(Emotion emotion) {
+        EmotionCount emotionCount = null;
+        if(emotion.PEACE.getValue() == 0) emotionCount.setPeaceCnt(emotionCount.getPeaceCnt() - 1);
+        if(emotion.EXCITED.getValue() == 1) emotionCount.setExcitedCnt(emotionCount.getExcitedCnt() - 1);
+        if(emotion.HAPPY.getValue() == 2) emotionCount.setHappyCnt(emotionCount.getHappyCnt() - 1);
+        if(emotion.TIRED.getValue() == 3) emotionCount.setTiredCnt(emotionCount.getTiredCnt() - 1);
+        if(emotion.ANGRY.getValue() == 4) emotionCount.setAngryCnt(emotionCount.getAngryCnt() - 1);
+        if(emotion.SAD.getValue() == 5) emotionCount.setSadCnt(emotionCount.getSadCnt() - 1);
     }
 }

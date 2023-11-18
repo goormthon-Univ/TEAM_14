@@ -14,13 +14,10 @@ public class SwaggerConfiguration {
 
     @Bean
     public OpenAPI apiV1() {
-
         return new OpenAPI()
                 .info(new Info()
                         .title("오늘의 구름 API")
                         .description("구름톤 Univ. 1기 2023 단풍톤 14팀 뭉게")
                         .version("1.0.0"));
     }
-
-
 }
