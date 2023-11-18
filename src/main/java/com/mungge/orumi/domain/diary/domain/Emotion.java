@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 public enum Emotion implements BaseEnum<Integer> {
-    PEACE(0),
+    PEACEFUL(0),
     EXCITED(1),
     HAPPY(2),
     TIRED(3),

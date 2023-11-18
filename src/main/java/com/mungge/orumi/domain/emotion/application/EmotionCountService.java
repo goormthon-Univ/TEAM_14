@@ -32,7 +32,7 @@ public class EmotionCountService {
 
     // 평화 횟수
     private int getCountOfPeace(String userId) {
-        return getCountOfEmotionInterface(userId, Emotion.PEACE);
+        return getCountOfEmotionInterface(userId, Emotion.PEACEFUL);
     }
 
     // 신남 횟수
@@ -114,7 +114,7 @@ public class EmotionCountService {
 
     public void plusEmotion(Emotion emotion){
         EmotionCount emotionCount = null;
-        if(emotion.PEACE.getValue() == 0) emotionCount.setPeaceCnt(emotionCount.getPeaceCnt() + 1);
+        if(emotion.PEACEFUL.getValue() == 0) emotionCount.setPeaceCnt(emotionCount.getPeaceCnt() + 1);
         if(emotion.EXCITED.getValue() == 1) emotionCount.setExcitedCnt(emotionCount.getExcitedCnt() + 1);
         if(emotion.HAPPY.getValue() == 2) emotionCount.setHappyCnt(emotionCount.getHappyCnt() + 1);
         if(emotion.TIRED.getValue() == 3) emotionCount.setTiredCnt(emotionCount.getTiredCnt() + 1);
@@ -124,7 +124,7 @@ public class EmotionCountService {
 
     public void minusEmotion(Emotion emotion) {
         EmotionCount emotionCount = null;
-        if(emotion.PEACE.getValue() == 0) emotionCount.setPeaceCnt(emotionCount.getPeaceCnt() - 1);
+        if(emotion.PEACEFUL.getValue() == 0) emotionCount.setPeaceCnt(emotionCount.getPeaceCnt() - 1);
         if(emotion.EXCITED.getValue() == 1) emotionCount.setExcitedCnt(emotionCount.getExcitedCnt() - 1);
         if(emotion.HAPPY.getValue() == 2) emotionCount.setHappyCnt(emotionCount.getHappyCnt() - 1);
         if(emotion.TIRED.getValue() == 3) emotionCount.setTiredCnt(emotionCount.getTiredCnt() - 1);
