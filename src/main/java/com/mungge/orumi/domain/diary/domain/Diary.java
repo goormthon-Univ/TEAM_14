@@ -46,4 +46,12 @@ public class Diary {
         this.imageId = imageId;
         date = LocalDate.now();
     }
+
+    public Diary(String userId, Emotion emotion, String text, Long imageId, LocalDate date) {
+        this.userId = userId;
+        this.emotion = emotion;
+        this.text = text;
+        this.imageId = imageId;
+        this.date = date;
+    }
 }
