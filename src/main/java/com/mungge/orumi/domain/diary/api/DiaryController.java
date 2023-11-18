@@ -46,7 +46,7 @@ public class DiaryController {
     @PostMapping(value = "/new", consumes = "multipart/form-data")
     public ResponseEntity<?> createDiary(@RequestPart DiaryRequestDto diaryDto, @RequestPart(required = false) MultipartFile requestImage) throws IOException {
         Long imageId = null;
-        if (!requestImage.isEmpty()) {
+        if (requestImage != null) {
             imageId = imageService.save(requestImage);
         }
         Diary diary = new Diary(id, diaryDto.getEmotion(), diaryDto.getText(), imageId);
@@ -88,7 +88,7 @@ public class DiaryController {
         diary.setEmotion(diaryDto.getEmotion());
 
         Long imageId = diary.getImageId();
-        if (!requestImage.isEmpty()) {
+        if (requestImage != null) {
             imageId = imageService.save(requestImage);
         }
         diaryService.updateDiary(diary);
