@@ -6,6 +6,7 @@ import com.mungge.orumi.domain.emotion.dao.RecordRepository;
 import com.mungge.orumi.domain.emotion.domain.EmotionCount;
 import com.mungge.orumi.domain.user.dao.UserRepository;
 import com.mungge.orumi.domain.user.domain.User;
+import com.mungge.orumi.global.common.Pair;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -91,30 +92,23 @@ public class EmotionCountService {
     }
 
     // 가입일부터 오늘까지의 날씨 반환
-    public List<Emotion> getEmotionsOfMonth(String userId) {
+    public List<Pair<LocalDate, Emotion>> getEmotionsOfMonth(String userId) throws Exception {
         User user = (User) userRepository.findById(userId);
-        List<Diary> tempList = new ArrayList<>();
-        List<Emotion> list = new ArrayList<>();
+        List<Pair<LocalDate, Emotion>> list = new ArrayList<>();
         LocalDate start = user.getJoinDate();
         LocalDate today = LocalDate.now();
-        tempList = recordRepository.findByUserIdAndDateBetween(userId, start, today);
 
         LocalDate now = start;
-        for (Diary diary : tempList) {
-            if (diary.getDate() != now) {
-                // 오늘 기록이 없는 경우
-                list.add(null);
-            }
-            else {
-                list.add(diary.getEmotion());
-            }
+
+
+        while (!now.isAfter(today)) {
+            Diary diary = recordRepository.findByUserIdAndDate(userId, now);
+            if (diary == null) {
+                list.add(new Pair<>(now, null));
+            } else list.add(new Pair<>(now, diary.getEmotion()));
             now = now.plusDays(1);
         }
 
-        while (now.isBefore(today.withDayOfMonth(today.lengthOfMonth()))) {
-            list.add(null);
-            now = now.plusDays(1);
-        }
         return list;
     }
 

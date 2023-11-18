@@ -5,6 +5,7 @@ import com.mungge.orumi.domain.diary.domain.Emotion;
 import com.mungge.orumi.domain.emotion.dto.SkyDto;
 import com.mungge.orumi.domain.emotion.dto.WeatherDto;
 import com.mungge.orumi.domain.user.application.UserService;
+import com.mungge.orumi.global.common.Pair;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -35,11 +36,11 @@ public class RecordController {
     @ApiResponse(responseCode = "404", description = "NOT FOUND")
     @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR")
     @GetMapping("/weather")
-    public ResponseEntity<?> getEmotionWeather() {
+    public ResponseEntity<?> getEmotionWeather() throws Exception {
 
-        List<Emotion> list = emotionCountService.getEmotionsOfMonth(id);
+        List<Pair<LocalDate, Emotion>> list = emotionCountService.getEmotionsOfMonth(id);
         LocalDate joinDate = userService.findJoinDate(id);
-        WeatherDto weatherDto = new WeatherDto(id, joinDate, list);
+        WeatherDto weatherDto = new WeatherDto(id, list);
         return ResponseEntity.ok(weatherDto);
     }
 
